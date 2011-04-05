@@ -12,7 +12,7 @@ module Cocoon
     # - *f* : the form this link should be placed in
     # - *html_options*:  html options to be passed to link_to (see <tt>link_to</tt>)
     # - *&block*:        the output of the block will be show in the link, see <tt>link_to</tt>
-    
+
     def link_to_remove_association(*args, &block)
       if block_given?
         f            = args.first
@@ -59,6 +59,7 @@ module Cocoon
 
         html_options[:class] = [html_options[:class], "add_fields"].compact.join(' ')
         html_options[:'data-association'] = association.to_s.singularize
+        html_options[:'data-associations'] = association.to_s.pluralize
 
         new_object = f.object.class.reflect_on_association(association).klass.new
         html_options[:'data-template'] = CGI.escapeHTML(render_association(association, f, new_object))
